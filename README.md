@@ -8,7 +8,6 @@ This repo contains an example HAProxy config for setting up a Canadiana platform
 $ cp haproxy.cfg.example haproxy.cfg
 $ echo whatevertextyoulike > pass.txt
 $ ./generate_test_cert.sh
-$ cd ..
 $ docker-compose up
 ```
 
