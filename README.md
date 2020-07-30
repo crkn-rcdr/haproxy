@@ -27,4 +27,4 @@ The default config supports the following projects:
 - [upholstery](https://github.com/crkn-rcdr/upholstery)
 - [lapin](https://github.com/crkn-rcdr/lapin)
 
-If these services are running on your machine, and you've edited your `/etc/hosts` file to point their public domains locally, you should be able to access these services as if they were running in production (i.e. no need to specify ports, etc.). Please check each project for local setup instructions.
+If these services are running on your machine, and you've edited your `/etc/hosts` file to point their public domains locally, you should be able to access these services as if they were running in production (i.e. no need to specify ports, etc.). Please check each project for local setup instructions. This config supports adding a suffix to each subdomain, e.g. `auth-dev.canadiana.ca`, if you want to maintain access to both local installations and production installations running at e.g. `auth.canadiana.ca`.
