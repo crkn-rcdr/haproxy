@@ -69,6 +69,7 @@ frontend public
   acl is_auth hdr_dom(host) -i -m beg auth. auth-
   acl is_admin hdr_dom(host) -i -m beg admin. admin-
   acl is_api hdr_dom(host) -i -m beg api. api-
+  acl is_access hdr_dom(host) -i -m beg access. access-
 
   # HTTP Request rewrites
   http-request redirect code 301 location http://www.canadiana.ca%[capture.req.uri] if is_unused_dom
@@ -84,6 +85,7 @@ frontend public
   use_backend amsa if is_auth
   use_backend sapindale if is_admin
   use_backend lapin if is_api
+  use_backend access if is_access
 
 backend apache
   server local 172.30.0.4:80
@@ -112,3 +114,13 @@ frontend admin_dev
 
 backend sapindale_dev
   server local 172.30.0.8:10000
+
+backend access
+  server local 172.30.0.10:4747
+
+frontend access_hmr
+  bind :14747 ssl crt /usr/local/etc/haproxy/certs/canadiana.pem alpn h2,http/1.1
+  default_backend access_hmr_ws
+
+backend access_hmr_ws
+  server local 172.30.0.10:14747
