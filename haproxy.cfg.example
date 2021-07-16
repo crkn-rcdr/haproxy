@@ -44,8 +44,8 @@ frontend public
   bind :80
   bind :443 ssl crt /usr/local/etc/haproxy/certs/canadiana.pem alpn h2,http/1.1
 
-  # we'll uncomment this when we're ready for HTTPS always
-  # http-response set-header Strict-Transport-Security max-age=63072000
+  # HTTPS always. Comment if this isn't working for you.
+  http-response set-header Strict-Transport-Security max-age=63072000
 
   # set X-Forwarded-(For,Host,Proto) headers
   option forwardfor
@@ -65,7 +65,7 @@ frontend public
   acl is_static path_beg -i /cihm-error/ /schema /standards/
   acl is_image hdr_dom(host) -i -m beg image. image-
   acl is_image_api path_beg -i /status /configuration /tasks
-  acl is_couch hdr_dom(host) -i -m beg upholstery. upholstery-
+  acl is_couch hdr_dom(host) -i -m beg couch. couch-
   acl is_auth hdr_dom(host) -i -m beg auth. auth-
   acl is_admin hdr_dom(host) -i -m beg admin. admin-
   acl is_api hdr_dom(host) -i -m beg api. api-
@@ -80,7 +80,7 @@ frontend public
   default_backend cap
   use_backend apache if is_org || is_cdn || is_static
   use_backend cantaloupe if is_image
-  use_backend upholstery if is_couch
+  use_backend couch if is_couch
   use_backend amsa if is_auth
   use_backend sapindale if is_admin
   use_backend lapin if is_api
@@ -94,8 +94,8 @@ backend cap
 backend cantaloupe
   server local 172.30.0.5:8182
 
-backend upholstery
-  server local 172.30.0.6:8080
+backend couch
+  server local 172.30.0.6:5984
 
 backend amsa
   server local 172.30.0.7:8080
@@ -112,4 +112,3 @@ frontend admin_dev
 
 backend sapindale_dev
   server local 172.30.0.8:10000
- 
