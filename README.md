@@ -1,3 +1,12 @@
+# No longer used
+
+The confiruation we use for testing, and then roll into production, is at
+
+https://github.com/crkn-rcdr/Access-Platform/tree/main/services/haproxy
+
+
+
+
 # HAProxy configuration
 
 This repo contains an example HAProxy config for setting up a Canadiana platform development environment, along with the error pages we use when services are down.
